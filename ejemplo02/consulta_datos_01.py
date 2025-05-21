@@ -12,8 +12,8 @@ from configuracion import cadena_base_datos
 # datos
 # para el ejemplo se usa la base de datos
 # sqlite
+# Armo el camino para la base de datos
 engine = create_engine(cadena_base_datos)
-
 
 Session = sessionmaker(bind=engine)
 session = Session()
@@ -21,17 +21,25 @@ session = Session()
 # Obtener todos los registros de
 # la entidad estudiante (clase Estudiante)
 
-# estudiantes = session.query(Estudiante).all()
-# print(estudiantes)
+#estudiantes = session.query(Estudiante).all()
+#print(estudiantes)
+
+#for e in estudiantes:
+#   print(f"{e.id} - {e.apellido}")
 
 # print("--------------------------------------")
 # Obtener todos los registros de la clase Modulo
-# modulos = session.query(Modulo).all()
-# print(modulos)
+#modulos = session.query(Modulo).all()
+#print(modulos)
 
-# print("--------------------------------------")
-# Obtener todos los registros de la clase Matricula
-# matriculas = session.query(Matricula).all()
+print("--------------------------------------")
+#Obtener todos los registros de la clase Matricula
+matriculas = session.query(Matricula).all()
+
+# Obtenemos los nombres y apellidos de cada estudiante mediante la clase matriculas
+# se puede hacer esto gracias a la relacion estudiante = relationship("Estudiante", back_populates="modulos")
+for m in matriculas:    
+    print(f"{m.estudiante.nombre} - {m.estudiante.apellido}")
 
 # nombre y apellido del estudiante de cada matrícula
 
