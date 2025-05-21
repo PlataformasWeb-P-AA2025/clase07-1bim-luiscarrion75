@@ -19,7 +19,24 @@ Session = sessionmaker(bind=engine)
 session = Session()
 
 # Sacar las matriculas con su estudiante y módulo
-matriculas = session.query(Matricula).all()
+#matriculas = session.query(Matricula).join(Estudiante).\
+ #           filter(Estudiante.nombre.like("%tony%")).all()
+
+
+#for m in matriculas:
+#    print(m.periodo, m.estudiante, m.modulo)
+
+#for m in matriculas:
+ #   print("Periodo: ",m.periodo)
+ #   print("Estudiante: ",m.estudiante.nombre, m.estudiante.apellido)
+ #   print("Modulo: ",m.modulo.nombre)
+
+matriculas = session.query(Matricula).join(Estudiante).join(Modulo).\
+    filter(Estudiante.nombre.like("%tony%")).all()
 
 for m in matriculas:
-    print(m, m.estudiante, m.modulo)
+    print("Estudiante:", m.estudiante.nombre, m.estudiante.apellido)
+    print("Módulo:", m.modulo.nombre)
+    print("Periodo:", m.periodo)
+    print("------")
+
